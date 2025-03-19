@@ -4,16 +4,27 @@
 
 #include "Library.h"
 #include <algorithm>
+#include <iostream>
 
 const std::shared_ptr<Book> Library::parseBook(const Book &book) const {
+  std::cout<<std::make_shared<Book>(book)<<'\n';
   return std::make_shared<Book>(book);
 }
-Library::bookIteratorType Library::getBookIterator(const Book& book) const{
-  return  find(books.begin(), books.end(), parseBook(book));
-}
-
 bool Library::findBook(const Book& book) const{
-  return getBookIterator(book) != books.end();
+  for (auto &bookPointer : books) {
+      if (*bookPointer == book) {
+        return true;
+      }
+  }
+  return false;
+}
+Library::bookIteratorType Library::getBookIterator(const Book& book) const {
+  for (bookIteratorType it = books.begin(); it != books.end(); it++) {
+    if (*(*it) == book) {
+      return it;
+    }
+  }
+  return books.end();
 }
 void Library::addBook(const Book& book){
   books.push_back(parseBook(book));

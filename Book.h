@@ -23,6 +23,7 @@ class Book {
     void setAuthor(const QString &_author);
     void setYear(const short &_year);
 
+    bool operator==(const Book & book) const = default;
 };
 
 
