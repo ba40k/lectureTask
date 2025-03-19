@@ -8,6 +8,13 @@ class LibraryTesting : public testing::Test {
 };
 
 TEST_F(LibraryTesting, handlesSearchingTest1) {
-    Book book;
-
+    Book book("Kolobok", "Folk", 1000);
+    lib.addBook(book);
+    ASSERT_TRUE(lib.findBook(book));
+}
+TEST_F(LibraryTesting, handlesSearchingTest2) {
+    Book book("C++ tour", "Bjarne Straustroup", 2022);
+    lib.addBook(book);
+    Book secondBook("C++ tour", "Bjorn Straustroop", 2022);
+    ASSERT_FALSE(lib.findBook(secondBook));
 }

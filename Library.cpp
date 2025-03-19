@@ -4,6 +4,7 @@
 
 #include "Library.h"
 #include <algorithm>
+
 const std::shared_ptr<Book> Library::parseBook(const Book &book) const {
   return std::make_shared<Book>(book);
 }
