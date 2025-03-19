@@ -11,7 +11,7 @@
 class Library {
     typedef  std::vector<std::shared_ptr<Book>>::const_iterator bookIteratorType;
     std::vector<std::shared_ptr<Book>> books;
-    std::shared_ptr<Book> parseBook(const Book& book) const;
+    const std::shared_ptr<Book> parseBook(const Book& book) const;
     bookIteratorType getBookIterator(const Book& book) const;
     public:
     Library() = default;

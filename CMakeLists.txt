@@ -18,6 +18,7 @@ set(FORMS
         mainwindow.ui
 )
 add_executable(lectureTask main.cpp)
+add_subdirectory(Google_tests)
 target_link_libraries(lectureTask
         Qt::Core
         Qt::Gui

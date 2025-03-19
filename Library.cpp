@@ -4,11 +4,11 @@
 
 #include "Library.h"
 #include <algorithm>
-std::shared_ptr<Book> Library::parseBook(const Book &book) const {
+const std::shared_ptr<Book> Library::parseBook(const Book &book) const {
   return std::make_shared<Book>(book);
 }
 Library::bookIteratorType Library::getBookIterator(const Book& book) const{
-  return
+  return  find(books.begin(), books.end(), parseBook(book));
 }
 
 bool Library::findBook(const Book& book) const{
@@ -19,6 +19,6 @@ void Library::addBook(const Book& book){
 }
 void Library::removeBook(const Book& book){
   if (findBook(book)){
-     books.erase(parseBook(book));
+     books.erase(getBookIterator(book));
   }
 }
