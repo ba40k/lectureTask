@@ -13,6 +13,7 @@ class Book {
     QString author;
     short year;
     public:
+    Book(const QString &_title,const QString &_author,const short &_year);
     QString getTitle() const;
     QString getAuthor() const;
     short getYear() const;

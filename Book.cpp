@@ -25,3 +25,8 @@ void Book::setAuthor(const QString &_author){
 void Book::setYear(const short &_year){
   year = _year;
 }
+Book::Book(const QString &_title, const QString &_author, const short &_year){
+  setTitle(_title);
+  setAuthor(_author);
+  setYear(_year);
+}
