@@ -6,7 +6,7 @@
 #define BOOK_H
 
 #include <QString>
-
+#include <memory>
 class QString;
 
 class Book {
