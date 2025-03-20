@@ -18,16 +18,16 @@ class Library {
     Library() = default;
     int getSize() const;
     bool findBook(const Book& book) const;
-    std::vector<std::weak_ptr<Book>> getAllBooksByAuthor(const QString &_author) const; // дает все книги с заданным автором
-    std::vector<std::weak_ptr<Book>> getAllBooksByTitle(const QString &_title) const;  // дает все книги с заданным названием
-    std::vector<std::weak_ptr<Book>> getAllBooksByAuthorAndTitle(const QString &_author, const QString &_title) const; // дает все книги с заданным автором и названием
-    std::weak_ptr<Book> getAnyBookByAuthor(const QString &_author) const; // дает некую книгу с заданным автором
-    std::weak_ptr<Book> getAnyBookByTitle(const QString &_title) const;  // дает некую книгу с заданным названием
-    std::weak_ptr<Book> getAnyBookByAuthorAndTitle(const QString &_author, const QString &_title) const; // дает некую книгу с заданным автором и названием
+    std::vector<Book> getAllBooksByAuthor(const QString &_author) const; // дает все книги с заданным автором
+    std::vector<Book> getAllBooksByTitle(const QString &_title) const;  // дает все книги с заданным названием
+    std::vector<Book> getAllBooksByAuthorAndTitle(const QString &_author, const QString &_title) const; // дает все книги с заданным автором и названием
+    Book getAnyBookByAuthor(const QString &_author) const; // дает некую книгу с заданным автором
+    Book getAnyBookByTitle(const QString &_title) const;  // дает некую книгу с заданным названием
+    Book getAnyBookByAuthorAndTitle(const QString &_author, const QString &_title) const; // дает некую книгу с заданным автором и названием
+    std::vector<Book> getBooksListed() const ;
+    std::vector<std::vector<QString>> getBooksInformationListed() const;
     void addBook(const Book& book);
     void removeBook(const Book& book);
 };
-
-
 
 #endif //LIBRARY_H

@@ -6,7 +6,7 @@
 #define BOOK_H
 
 #include <QString>
-#include <memory>
+#include <vector>
 class QString;
 
 class Book {
@@ -22,10 +22,11 @@ class Book {
     void setTitle(const QString &_title);
     void setAuthor(const QString &_author);
     void setYear(const short &_year);
+    std::vector<QString> getInformation();
 
     bool operator==(const Book & book) const = default;
+    bool operator<(const Book & book) const;
 };
-
 
 
 #endif //BOOK_H

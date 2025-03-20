@@ -41,53 +41,69 @@ int Library::getSize() const {
   return books.size();
 }
 
-std::vector<std::weak_ptr<Book> > Library::getAllBooksByAuthor(const QString &_author) const {
-  std::vector<std::weak_ptr<Book> > result;
+std::vector<Book> Library::getAllBooksByAuthor(const QString &_author) const {
+  std::vector<Book> result;
   for (bookIteratorType it = books.begin(); it != books.end(); it++) {
     if ((*it)->getAuthor() == _author) {
-      result.push_back((*it));
+      result.push_back(*(*it));
     }
   }
   return result;
 }
-std::vector<std::weak_ptr<Book> > Library::getAllBooksByTitle(const QString &_title) const {
-  std::vector<std::weak_ptr<Book> > result;
+std::vector<Book> Library::getAllBooksByTitle(const QString &_title) const {
+  std::vector<Book> result;
   for (bookIteratorType it = books.begin(); it != books.end(); it++) {
     if ((*it)->getTitle() == _title) {
-      result.push_back((*it));
+      result.push_back(*(*it));
     }
   }
   return result;
 }
-std::vector<std::weak_ptr<Book> > Library::getAllBooksByAuthorAndTitle(const QString &_author,const QString &_title) const {
-  std::vector<std::weak_ptr<Book> > result;
+std::vector<Book> Library::getAllBooksByAuthorAndTitle(const QString &_author,const QString &_title) const {
+  std::vector<Book> result;
   for (bookIteratorType it = books.begin(); it != books.end(); it++) {
     if ((*it)->getTitle() == _title && (*it)->getAuthor() == _author) {
-      result.push_back((*it));
+      result.push_back(*(*it));
     }
   }
   return result;
 }
 
-std::weak_ptr<Book> Library::getAnyBookByAuthor(const QString &_author) const {
+Book Library::getAnyBookByAuthor(const QString &_author) const {
   for (bookIteratorType it = books.begin(); it != books.end(); it++) {
     if ((*it)->getAuthor() == _author) {
-      return *it;
+      return *(*it);
     }
   }
 }
-std::weak_ptr<Book> Library::getAnyBookByTitle(const QString &_title) const {
+Book Library::getAnyBookByTitle(const QString &_title) const {
   for (bookIteratorType it = books.begin(); it != books.end(); it++) {
     if ((*it)->getTitle() == _title) {
-      return *it;
+      return *(*it);
     }
   }
 }
 
-std::weak_ptr<Book> Library::getAnyBookByAuthorAndTitle(const QString &_author, const QString &_title) const {
+Book Library::getAnyBookByAuthorAndTitle(const QString &_author, const QString &_title) const {
   for (bookIteratorType it = books.begin(); it != books.end(); it++) {
     if ((*it)->getAuthor() == _author && (*it)->getTitle() == _title) {
-      return *it;
+      return *(*it);
     }
   }
+}
+
+std::vector<Book> Library::getBooksListed() const {
+  std::vector<Book> res;
+  for (auto &x : books) {
+    res.push_back(*x);
+  }
+  return res;
+}
+
+std::vector<std::vector<QString> > Library::getBooksInformationListed() const {
+  std::vector<std::vector<QString>> res;
+  for (auto &x : books) {
+    res.push_back(x->getInformation());
+  }
+  return res;
 }

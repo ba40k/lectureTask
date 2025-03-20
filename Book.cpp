@@ -30,3 +30,15 @@ Book::Book(const QString &_title, const QString &_author, const short &_year){
   setAuthor(_author);
   setYear(_year);
 }
+bool Book::operator<(const Book &_other) const {
+  return (title + author + QString::number(year) < _other.getTitle() + _other.getAuthor() + QString::number(_other.getYear()));
+}
+std::vector<QString> Book::getInformation() {
+  std::vector<QString> information;
+  information.push_back(title);
+  information.push_back(author);
+  information.push_back(QString::number(year));
+  return information;
+}
+
+
