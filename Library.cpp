@@ -100,10 +100,3 @@ std::vector<Book> Library::getBooksListed() const {
   return res;
 }
 
-std::vector<std::vector<QString> > Library::getBooksInformationListed() const {
-  std::vector<std::vector<QString>> res;
-  for (auto &x : books) {
-    res.push_back(x->getInformation());
-  }
-  return res;
-}

@@ -25,7 +25,6 @@ class Library {
     Book getAnyBookByTitle(const QString &_title) const;  // дает некую книгу с заданным названием
     Book getAnyBookByAuthorAndTitle(const QString &_author, const QString &_title) const; // дает некую книгу с заданным автором и названием
     std::vector<Book> getBooksListed() const ;
-    std::vector<std::vector<QString>> getBooksInformationListed() const;
     void addBook(const Book& book);
     void removeBook(const Book& book);
 };
