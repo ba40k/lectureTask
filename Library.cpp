@@ -34,3 +34,6 @@ void Library::removeBook(const Book& book){
      books.erase(getBookIterator(book));
   }
 }
+int Library::getSize() const {
+  return books.size();
+}

@@ -15,6 +15,7 @@ class Library {
     bookIteratorType getBookIterator(const Book& book) const;
     public:
     Library() = default;
+    int getSize() const;
     bool findBook(const Book& book) const;
     void addBook(const Book& book);
     void removeBook(const Book& book);
