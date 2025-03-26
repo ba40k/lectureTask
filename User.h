@@ -11,7 +11,7 @@ class User {
     uint64_t id;
     static uint64_t currentId;
     public:
-    User(std::string _name);
+    User(const std::string &_name);
     uint64_t getId() const;
     QString getName() const;
 };

@@ -3,9 +3,9 @@
 //
 
 #include "User.h"
+uint64_t User::currentId = 0;
 
-
-User::User(std::string _name) {
+User::User(const std::string &_name) {
     this->name =QString::fromStdString(_name);
     this->id = currentId;
     currentId++;
