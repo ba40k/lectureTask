@@ -1,0 +1,17 @@
+//
+// Created by radamir on 26.03.25.
+//
+
+#ifndef USER_H
+#define USER_H
+
+#include <QString>
+class User {
+    QString name;
+    uint64_t id;
+    static uint64_t currentId;
+};
+
+
+
+#endif //USER_H
