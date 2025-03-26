@@ -6,33 +6,33 @@
 #include <algorithm>
 #include <iostream>
 
-const std::shared_ptr<Book> Library::parseBookToSharedPtr(const Book &book) const {
-  return std::make_shared<Book>(book);
+const std::shared_ptr<Book> Library::parseBookToSharedPtr(const std::unique_ptr<Book> &book) const {
+  return std::make_shared<Book>(*book);
 }
-std::weak_ptr<Book> Library::parseBookToWeakPtr(const Book &book) const {
+std::weak_ptr<Book> Library::parseBookToWeakPtr(const std::unique_ptr<Book> &book) const {
   std::weak_ptr<Book> wp = parseBookToSharedPtr(book);
   return wp;
 }
-bool Library::findBook(const Book& book) const{
+bool Library::findBook(const std::unique_ptr<Book> &book) const{
   for (auto &bookPointer : books) {
-      if (*bookPointer == book) {
+      if (*bookPointer == *book) {
         return true;
       }
   }
   return false;
 }
-Library::bookIteratorType Library::getBookIterator(const Book& book) const {
+Library::bookIteratorType Library::getBookIterator(const std::unique_ptr<Book> &book) const {
   for (bookIteratorType it = books.begin(); it != books.end(); it++) {
-    if (*(*it) == book) {
+    if (*(*it) == *book) {
       return it;
     }
   }
   return books.end();
 }
-void Library::addBook(const Book& book){
+void Library::addBook(const std::unique_ptr<Book> &book){
   books.push_back(parseBookToSharedPtr(book));
 }
-void Library::removeBook(const Book& book){
+void Library::removeBook(const std::unique_ptr<Book> &book){
   if (findBook(book)){
      books.erase(getBookIterator(book));
   }
@@ -100,3 +100,7 @@ std::vector<Book> Library::getBooksListed() const {
   return res;
 }
 
+
+std::vector<QString> Library::getBookInfo(const std::unique_ptr<Book> &book) const {
+  return book->getInformation();
+}
