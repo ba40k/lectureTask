@@ -18,7 +18,7 @@ set(FORMS
         mainwindow.ui
 )
 add_executable(lectureTask main.cpp)
-add_library(Library_lib STATIC Book.cpp Library.cpp)
+add_library(Library_lib STATIC Book.cpp Library.cpp User.cpp)
 add_subdirectory(Google_tests)
 target_link_libraries(lectureTask
 
