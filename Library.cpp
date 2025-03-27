@@ -99,8 +99,48 @@ std::vector<Book> Library::getBooksListed() const {
   }
   return res;
 }
-
-
 std::vector<QString> Library::getBookInfo(const std::unique_ptr<Book> &book) const {
   return book->getInformation();
 }
+bool Library::findBookOnHands(const std::unique_ptr<Book> &book) const {
+  for (int i =0 ;i < users.size();i++) {
+    for (auto &x : users[i]) {
+      if (*x == *book) {
+        return true;
+      }
+    }
+  }
+  return false;
+}
+bool Library::findUser(const std::shared_ptr<User> &user) const {
+  for (auto &x : users) {
+    if (*x == *user) {
+      return true;
+    }
+  }
+  return false;
+}
+
+void Library::addUser(const std::shared_ptr<User> &user) {
+      if (!findUser(user)) {
+        users.push_back(user);
+        usersBooks.push_back({});
+      }
+}
+
+void Library::removeUser(const std::shared_ptr<User> &user){
+    int deletingIndex = -1;
+    for (int i =0;i<users.size();i++) {
+      if (*users[i] == *user) {
+        deletingIndex = i;
+        break;
+      }
+    }
+    if (deletingIndex != -1) {
+      users.erase(users.begin() + deletingIndex);
+      usersBooks.erase(usersBooks.begin() + deletingIndex);
+    }
+}
+
+
+

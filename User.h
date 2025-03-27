@@ -11,6 +11,7 @@ class User {
     uint64_t id;
     static uint64_t currentId;
     public:
+    bool operator==(const User &) const = default;
     User(const std::string &_name);
     uint64_t getId() const;
     QString getName() const;
