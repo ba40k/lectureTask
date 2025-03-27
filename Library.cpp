@@ -124,7 +124,7 @@ bool Library::findUser(const std::shared_ptr<User> &user) const {
 void Library::addUser(const std::shared_ptr<User> &user) {
       if (!findUser(user)) {
         users.push_back(user);
-        usersBooks.push_back({});
+        usersBooks[user->getId()].push_back({});
       }
 }
 
