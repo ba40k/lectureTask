@@ -17,7 +17,7 @@ class Library {
     std::weak_ptr<Book> parseBookToWeakPtr(const std::unique_ptr<Book> &book) const;
     bookIteratorType getBookIterator(const std::unique_ptr<Book> &book) const;
     std::vector<std::shared_ptr<User>> users; // пользователи
-    std::vector<std::vector<std::unique_ptr<Book>>> usersBooks; // книги на руках
+    std::map<int,std::vector<std::unique_ptr<Book>>> usersBooks;
     public:
     Library() = default;
     int getSize() const;
@@ -35,6 +35,7 @@ class Library {
     std::vector<Book> getBooksListed() const ;
     void addBook(const std::unique_ptr<Book> &book);
     void removeBook(const std::unique_ptr<Book> &book);
+    void giveBook(std::unique_ptr<Book> &book, std::shared_ptr<User> &user);
 
     void addUser(const std::shared_ptr<User> &user);
     void removeUser(const std::shared_ptr<User> &user);

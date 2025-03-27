@@ -138,9 +138,16 @@ void Library::removeUser(const std::shared_ptr<User> &user){
     }
     if (deletingIndex != -1) {
       users.erase(users.begin() + deletingIndex);
-      usersBooks.erase(usersBooks.begin() + deletingIndex);
+      usersBooks.erase(usersBooks.find(users[deletingIndex]->getId()));
     }
 }
+void Library::giveBook(std::unique_ptr<Book> &book, std::shared_ptr<User> &user) {
+  if (findUser(user) && findBook(book)) {
+    removeBook(book);
+    usersBooks[user->getId()].push_back(book);
+  }
+}
+
 
 
 
