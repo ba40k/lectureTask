@@ -35,6 +35,7 @@ class Library {
     Book getAnyBookByAuthorAndTitle(const QString &_author, const QString &_title) const; // дает некую книгу с заданным автором и названием
     int getNumberOfUsers() const;
     int getNumberOfBooksOnHands() const;
+    int getNumberOfBooks() const;
 
     std::vector<Book> getBooksListed() const ;
     void addBook(const std::unique_ptr<Book> &book);

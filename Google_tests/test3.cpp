@@ -44,5 +44,19 @@ TEST_F(ComplexLibraryTesting, handlesUserRemovingTest2) {
   lib.addUser(Vladimir);
   lib.removeUser(Radamirus);
   ASSERT_EQ(1,lib.getNumberOfUsers());
+}
+TEST_F(ComplexLibraryTesting, handlesUserRemovingTest3) {
+
+  auto Radamirus = std::make_shared<User>("Radamirus");
+  auto Vladimir = std::make_shared<User>("Vladimir");
+  lib.addUser(Radamirus);
+  lib.addUser(Vladimir);
+  Book GA("Geometriya i algebra","Razmyslovich, Filiptsov",2024);
+  lib.addBook(std::make_unique<Book>(GA));
+  std::unique_ptr<Book> GAptr = std::make_unique<Book>(GA);
+  lib.giveBook(GAptr, Radamirus);
+  lib.removeUser(Radamirus);
+  ASSERT_EQ(1,lib.getNumberOfBooks());
 
 }
+

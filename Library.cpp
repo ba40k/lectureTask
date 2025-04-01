@@ -190,4 +190,7 @@ std::vector<Book> Library::getUserBooksListed(const std::shared_ptr<User> &user)
 }
 
 
+int Library::getNumberOfBooks() const {
+  return books.size();
+}
 
