@@ -124,7 +124,6 @@ bool Library::findUser(const std::shared_ptr<User> &user) const {
 void Library::addUser(const std::shared_ptr<User> &user) {
       if (!findUser(user)) {
         users.push_back(user);
-        usersBooks[user->getId()].push_back({});
       }
 }
 
@@ -132,13 +131,23 @@ void Library::removeUser(const std::shared_ptr<User> &user){
     int deletingIndex = -1;
     for (int i =0;i<users.size();i++) {
       if (*users[i] == *user) {
+        /*
+         *Здесь обрабатывается важный граничный случай - если при удалении пользователи у него были книги, то он их возвращает
+         *В задании ничего не было написано про сдачу книг обратно поэтому пусть так
+         */
+        auto thisUserBooks = getUserBooksListed(user);
+        for (int j = 0;j < thisUserBooks.size();j++) {
+          addBook(std::make_unique<Book>(thisUserBooks[j]));
+        }
         deletingIndex = i;
         break;
       }
     }
     if (deletingIndex != -1) {
       users.erase(users.begin() + deletingIndex);
-      usersBooks.erase(usersBooks.find(users[deletingIndex]->getId()));
+      if (usersBooks.find(users[deletingIndex]->getId())!=usersBooks.end()) {
+        usersBooks.erase(usersBooks.find(users[deletingIndex]->getId()));
+      }
     }
 }
 void Library::giveBook(std::unique_ptr<Book> &book, std::shared_ptr<User> &user) {
@@ -173,8 +182,8 @@ std::vector<Book> Library::getUserBooksListed(const std::shared_ptr<User> &user)
 
   std::vector<Book> res;
 
-  for (auto &x : booksPtr) {
-    res.push_back(*x);
+  for (int i =0; i<booksPtr.size();i++) {
+    res.push_back(*booksPtr[i]);
   }
 
   return res;

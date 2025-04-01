@@ -25,6 +25,7 @@ class Book {
     std::vector<QString> getInformation();
 
     bool operator==(const Book & book) const = default;
+    Book& operator=(const Book & book) = default;
     bool operator<(const Book & book) const;
 };
 
