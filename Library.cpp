@@ -102,9 +102,9 @@ std::vector<Book> Library::getBooksListed() const {
 std::vector<QString> Library::getBookInfo(const std::unique_ptr<Book> &book) const {
   return book->getInformation();
 }
-bool Library::findBookOnHands(const std::unique_ptr<Book> &book) const {
-  for (int i =0 ;i < users.size();i++) {
-    for (auto &x : users[i]) {
+bool Library::findBookOnHands(const std::unique_ptr<Book> &book)  {
+  for (uint64_t i =0 ;i < users.size();i++) {
+    for (auto &x : usersBooks[users[i]->getId()]) {
       if (*x == *book) {
         return true;
       }
@@ -144,10 +144,41 @@ void Library::removeUser(const std::shared_ptr<User> &user){
 void Library::giveBook(std::unique_ptr<Book> &book, std::shared_ptr<User> &user) {
   if (findUser(user) && findBook(book)) {
     removeBook(book);
-    usersBooks[user->getId()].push_back(book);
+    usersBooks[user->getId()].push_back(std::make_shared<Book>(*book));
   }
 }
 
+int Library::getNumberOfUsers() const {
+  return users.size();
+}
+int Library::getNumberOfBooksOnHands() const {
+  int res = 0;
+  for (auto &[ id, books] : usersBooks) {
+    res+=books.size();
+  }
+  return res;
+}
+
+std::vector<User> Library::getUsersListed() const {
+  std::vector<User>  res;
+  int i =0;
+  for (auto &x : users) {
+    res.push_back(*x);
+  }
+  return res;
+}
+
+std::vector<Book> Library::getUserBooksListed(const std::shared_ptr<User> &user)  {
+  std::vector<std::shared_ptr<Book>> booksPtr = usersBooks[user->getId()];
+
+  std::vector<Book> res;
+
+  for (auto &x : booksPtr) {
+    res.push_back(*x);
+  }
+
+  return res;
+}
 
 
 

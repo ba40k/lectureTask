@@ -16,3 +16,7 @@ uint64_t User::getId() const {
 QString User::getName() const {
     return name;
 }
+QString User::getUserInformation() const {
+    return QString::fromStdString(std::to_string(currentId)) + " " + name;
+}
+

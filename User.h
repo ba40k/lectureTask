@@ -15,6 +15,7 @@ class User {
     User(const std::string &_name);
     uint64_t getId() const;
     QString getName() const;
+    QString getUserInformation() const; // id name
 };
 
 
