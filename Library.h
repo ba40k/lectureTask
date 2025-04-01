@@ -22,6 +22,7 @@ class Library {
     Library() = default;
     int getSize() const;
     std::vector<QString> getBookInfo(const std::unique_ptr<Book> &book) const;
+
     bool findBook(const std::unique_ptr<Book> &book) const;
     bool findBookOnHands(const std::unique_ptr<Book> &book) ;
     bool findUser(const std::shared_ptr<User> &user) const;
