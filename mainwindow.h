@@ -1,6 +1,7 @@
 #ifndef MAINWINDOW_H
 #define MAINWINDOW_H
-
+#include <QTableView>
+#include <QStandardItemModel>
 #include <QMainWindow>
 #include <QWidget>
 #include <QMessageBox>
@@ -21,14 +22,23 @@ class MainWindow : public QMainWindow
     QMenu *addingMenu;
     QMenu *removeMenu;
     QMenu *findMenu;
-    QAction *addBook;
-    QAction *removeBook;
-    QAction *findBook;
-    QAction *addUser;
-    QAction *removeUser;
-    QAction *findUser;
+    QAction *addBookAction;
+    QAction *removeBookAction;
+    QAction *findBookAction;
+    QAction *addUserAction;
+    QAction *removeUserAction;
+    QAction *findUserAction;
+    QWidget* centralWidget;
 
+    QTableView* tableView;
+    QStandardItemModel *model;
 
+    void addBookSlot();
+    void removeBookSlot();
+    void findBookSlot();
+    void addUserSlot();
+    void removeUserSlot();
+    void findUserSlot();
 public:
     MainWindow(QWidget *parent = nullptr);
     ~MainWindow();
