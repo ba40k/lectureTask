@@ -18,22 +18,18 @@ class AddUserDialog  : public QDialog{
     QVBoxLayout *leftScreenPart;
     QVBoxLayout *rightScreenPart;
     QLabel* userNameHint;
-    QLabel* userIdHint;
     QLineEdit * userName ;
-    QLineEdit * userId ;
     bool errorOccured = false;
 
     const int  fixedHeight = 30;
 
     QString inputUserName;
-    uint64_t inputUserId;
 
 
     QPushButton *addUserButton;
     void addUserSlot();
 public:
     AddUserDialog(QWidget *parent = nullptr);
-    uint64_t getInputUserId();
     QString getInputUserName();
     bool getErrorOccured();
 

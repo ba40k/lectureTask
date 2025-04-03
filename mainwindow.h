@@ -7,6 +7,8 @@
 #include <QMessageBox>
 #include <QDialog>
 #include <QMenu>
+
+#include "Library.h"
 QT_BEGIN_NAMESPACE
 namespace Ui {
     class MainWindow;
@@ -32,6 +34,8 @@ class MainWindow : public QMainWindow
 
     QTableView* tableView;
     QStandardItemModel *model;
+
+    Library lib;
 
     void addBookSlot();
     void removeBookSlot();

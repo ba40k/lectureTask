@@ -6,6 +6,7 @@
 #include <QLabel>
 #include "AddBookDialog.h"
 #include "AddUserDialog.h"
+#include "Book.h"
 MainWindow::MainWindow(QWidget *parent) {
     setWindowTitle("Radamir's Library");
     setMinimumSize(QSize(WIDTH, HEIGHT));
@@ -68,7 +69,8 @@ void MainWindow::addBookSlot() {
 
         QStandardItem* item = new QStandardItem();
         model->setVerticalHeaderItem(model->rowCount(), new QStandardItem(title + " " + author + " " + year));
-
+        Book book(title, author, year.toInt());
+        lib.addBook(std::make_unique<Book>(book));
     }
 }
 void MainWindow::findBookSlot() {
@@ -83,11 +85,10 @@ void MainWindow::addUserSlot() {
 
     if (!addUserDialog->getErrorOccured()) {
         QString name = addUserDialog->getInputUserName();
-        QString id = QString::fromStdString(std::to_string( addUserDialog->getInputUserId()));
-
+        User user(name.toStdString());
         QStandardItem* item = new QStandardItem();
-        model->setHorizontalHeaderItem(model->columnCount(), new QStandardItem(name + " "  + id));
-
+        model->setHorizontalHeaderItem(model->columnCount(), new QStandardItem(name + " "  + QString::fromStdString(std::to_string(user.getId()))));
+        lib.addUser(std::make_shared<User>(user));
     }
 }
 void MainWindow::findUserSlot() {
