@@ -1,6 +1,10 @@
 #include "mainwindow.h"
 #include <QMenuBar>
-
+#include <QDialog>
+#include <QLineEdit>
+#include <QVBoxLayout>
+#include <QLabel>
+#include "AddBookDialog.h"
 MainWindow::MainWindow(QWidget *parent) {
     setWindowTitle("Radamir's Library");
     setMinimumSize(QSize(WIDTH, HEIGHT));
@@ -39,9 +43,50 @@ MainWindow::MainWindow(QWidget *parent) {
 
     tableView->setGeometry(QRect(0 , 0, WIDTH, HEIGHT));
 
+    connect(addBookAction, &QAction::triggered,this, &MainWindow::addBookSlot);
+    connect(findBookAction, &QAction::triggered,this, &MainWindow::findBookSlot);
+    connect(removeBookAction, &QAction::triggered,this, &MainWindow::removeBookSlot);
+
+
+    connect(addUserAction, &QAction::triggered,this, &MainWindow::addUserSlot);
+    connect(findUserAction, &QAction::triggered,this, &MainWindow::findUserSlot);
+    connect(removeUserAction, &QAction::triggered,this, &MainWindow::removeUserSlot);
+
     setMenuBar(menuBar);
     setCentralWidget(centralWidget);
 }
+void MainWindow::addBookSlot() {
+
+    AddBookDialog* addBookDialog = new AddBookDialog(this);
+    addBookDialog->exec();
+
+    if (!addBookDialog->getErrorOccured()) {
+        QString title = addBookDialog->getInputBookName();
+        QString author = addBookDialog->getInputAuthorName();
+        QString year = QString::fromStdString(std::to_string( addBookDialog->getInputYear()));
+
+        QStandardItem* item = new QStandardItem();
+        model->setVerticalHeaderItem(model->rowCount(), new QStandardItem(title + " " + author + " " + year));
+
+    }
+}
+void MainWindow::findBookSlot() {
+
+}
+void MainWindow::removeBookSlot() {
+
+}
+void MainWindow::addUserSlot() {
+
+}
+void MainWindow::findUserSlot() {
+
+}
+void MainWindow::removeUserSlot() {
+
+}
+
 MainWindow::~MainWindow() {
+
 
 }
