@@ -32,7 +32,7 @@ class FindBookDialog  : public QDialog{
     short inputBookYear;
     bool errorOccured;
 
-    const int fixedWidth = 30;
+    const int fixedHeight = 30;
 
     void findBookSlot();
     public:

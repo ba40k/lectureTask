@@ -7,6 +7,8 @@
 #include "AddBookDialog.h"
 #include "AddUserDialog.h"
 #include "Book.h"
+#include "findBookDialog.h"
+
 MainWindow::MainWindow(QWidget *parent) {
     setWindowTitle("Radamir's Library");
     setMinimumSize(QSize(WIDTH, HEIGHT));
@@ -72,8 +74,31 @@ void MainWindow::addBookSlot() {
         Book book(title, author, year.toInt());
         lib.addBook(std::make_unique<Book>(book));
     }
+    delete addBookDialog;
 }
 void MainWindow::findBookSlot() {
+    FindBookDialog* findBookDialog = new FindBookDialog(this);
+    findBookDialog->exec();
+    if (!findBookDialog->getErrorOccured()) {
+        QString title = findBookDialog->getInputBookName();
+        QString author = findBookDialog->getInputBookAuthor();
+        QString year = QString::fromStdString(std::to_string( findBookDialog->getInputBookYear()));
+        Book book(title, author, year.toInt());
+
+
+        QMessageBox* result = new QMessageBox(this);
+
+
+        if (lib.findBook(std::make_unique<Book>(book))) {
+            result->setText("Такая книга имеется в наличии");
+            result->show();
+        } else {
+            result->setText("Такая книга отсутствует в наличии");
+            result->show();
+        }
+
+    }
+    delete findBookDialog;
 
 }
 void MainWindow::removeBookSlot() {
@@ -90,6 +115,7 @@ void MainWindow::addUserSlot() {
         model->setHorizontalHeaderItem(model->columnCount(), new QStandardItem(name + " "  + QString::fromStdString(std::to_string(user.getId()))));
         lib.addUser(std::make_shared<User>(user));
     }
+    delete addUserDialog;
 }
 void MainWindow::findUserSlot() {
 
