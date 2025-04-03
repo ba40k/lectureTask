@@ -5,6 +5,7 @@
 #include <QVBoxLayout>
 #include <QLabel>
 #include "AddBookDialog.h"
+#include "AddUserDialog.h"
 MainWindow::MainWindow(QWidget *parent) {
     setWindowTitle("Radamir's Library");
     setMinimumSize(QSize(WIDTH, HEIGHT));
@@ -77,7 +78,17 @@ void MainWindow::removeBookSlot() {
 
 }
 void MainWindow::addUserSlot() {
+    AddUserDialog* addUserDialog = new AddUserDialog(this);
+    addUserDialog->exec();
 
+    if (!addUserDialog->getErrorOccured()) {
+        QString name = addUserDialog->getInputUserName();
+        QString id = QString::fromStdString(std::to_string( addUserDialog->getInputUserId()));
+
+        QStandardItem* item = new QStandardItem();
+        model->setHorizontalHeaderItem(model->columnCount(), new QStandardItem(name + " "  + id));
+
+    }
 }
 void MainWindow::findUserSlot() {
 
