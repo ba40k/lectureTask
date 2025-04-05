@@ -10,6 +10,8 @@
 #include "findBookDialog.h"
 #include "findUserDialog.h"
 #include "QHeaderView"
+#include "RemoveBookDialog.h"
+#include "removeUserDialog.h"
 
 MainWindow::MainWindow(QWidget *parent) {
     setWindowTitle("Radamir's Library");
@@ -58,6 +60,8 @@ MainWindow::MainWindow(QWidget *parent) {
     connect(findUserAction, &QAction::triggered,this, &MainWindow::findUserSlot);
     connect(removeUserAction, &QAction::triggered,this, &MainWindow::removeUserSlot);
 
+
+
     setMenuBar(menuBar);
     setCentralWidget(centralWidget);
 }
@@ -70,8 +74,6 @@ void MainWindow::addBookSlot() {
         QString title = addBookDialog->getInputBookName();
         QString author = addBookDialog->getInputAuthorName();
         QString year = QString::fromStdString(std::to_string( addBookDialog->getInputYear()));
-
-        QStandardItem* item = new QStandardItem();
         model->setVerticalHeaderItem(model->rowCount(), new QStandardItem(title + " " + author + " " + year));
         Book book(title, author, year.toInt());
         lib.addBook(std::make_unique<Book>(book));
@@ -108,7 +110,30 @@ void MainWindow::findBookSlot() {
 
 }
 void MainWindow::removeBookSlot() {
+    RemoveBookDialog* removeBookDialog = new RemoveBookDialog(); // я только потом понял, что этот диалог подходит и для удаления
+    removeBookDialog->exec();
 
+    if (!removeBookDialog->getErrorOccured()) {
+
+        QString title = removeBookDialog->getInputBookName();
+        QString author = removeBookDialog->getInputAuthorName();
+        QString year = QString::fromStdString(std::to_string( removeBookDialog->getInputYear()));
+        Book book(title, author, year.toInt());
+        if(lib.findBook(std::make_unique<Book>(book))) {
+
+            for (int i =0;i<model->rowCount();i++) {
+                int rows = model->rowCount();
+                if (model->verticalHeaderItem(i)->text() == title + " " + author + " " + year) {
+                    model->removeRow(i);
+                    break;
+                }
+            }
+
+
+            lib.removeBook(std::make_unique<Book>(book));
+        }
+    }
+    delete removeBookDialog;
 }
 void MainWindow::addUserSlot() {
     AddUserDialog* addUserDialog = new AddUserDialog();
@@ -117,7 +142,6 @@ void MainWindow::addUserSlot() {
     if (!addUserDialog->getErrorOccured()) {
         QString name = addUserDialog->getInputUserName();
         User user(name.toStdString());
-        QStandardItem* item = new QStandardItem();
         model->setHorizontalHeaderItem(model->columnCount(), new QStandardItem(name + " "  + QString::fromStdString(std::to_string(user.getId()))));
         lib.addUser(std::make_shared<User>(user));
     }
@@ -165,7 +189,30 @@ void MainWindow::resizeEvent(QResizeEvent *event) {
 
 }
 void MainWindow::removeUserSlot() {
+    RemoveUserDialog* removeUserDialog = new RemoveUserDialog(); // я только потом понял, что этот диалог подходит и для удаления
+    removeUserDialog->exec();
 
+    if (!removeUserDialog->getErrorOccured()) {
+        QString name = removeUserDialog->getInputUserName();
+        User user(name.toStdString(), removeUserDialog->getInputUserId());
+        if (lib.findUser(std::make_unique<User>(user))) {
+            for (int i =0;i<model->columnCount();i++) {
+                if (model->horizontalHeaderItem(i)->text() == name + " " + QString::fromStdString(std::to_string(user.getId()))) {
+                    model->removeColumn(i);
+                    break;
+                }
+            }
+            lib.removeUser(std::make_shared<User>(user));
+        }
+    }
+    if (model->columnCount() > 0) {
+        int newColumwWidth = WIDTH / model->columnCount();
+        for(int i =0 ;i<model->columnCount();i++) {
+            tableView->setColumnWidth(i, newColumwWidth);
+        }
+    }
+
+    delete removeUserDialog;
 }
 
 MainWindow::~MainWindow() {

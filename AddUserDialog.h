@@ -2,8 +2,8 @@
 // Created by radamir on 02.04.25.
 //
 
-#ifndef ADDUserDIALOG_H
-#define ADDUserDIALOG_H
+#ifndef ADDUSERDIALOG_H
+#define ADDUSERDIALOG_H
 
 #include <QDialog>
 #include <QHBoxLayout>
@@ -37,4 +37,4 @@ public:
 
 
 
-#endif //ADDUserDIALOG_H
+#endif //ADDUSERDIALOG_H

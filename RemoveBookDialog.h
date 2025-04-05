@@ -1,18 +1,18 @@
 //
-// Created by radamir on 02.04.25.
+// Created by radamir on 05.04.25.
 //
 
-#ifndef ADDBOOKDIALOG_H
-#define ADDUBOOKDIALOG_H
-
+#ifndef REMOVEBOOKDIALOG_H
+#define REMOVEBOOKDIALOG_H
 #include <QDialog>
 #include <QHBoxLayout>
 #include <QLabel>
 #include <QLineEdit>
 #include <QPushButton>
-class AddBookDialog  : public QDialog{
+
+class RemoveBookDialog : public QDialog{
     Q_OBJECT
-    QVBoxLayout *mainLayout;
+   QVBoxLayout *mainLayout;
     QHBoxLayout *horizontalSplit;
     QVBoxLayout *leftScreenPart;
     QVBoxLayout *rightScreenPart;
@@ -30,10 +30,10 @@ class AddBookDialog  : public QDialog{
     QString inputAuthorName;
     short inputYear;
 
-    QPushButton *addBookButton;
-    void addBookSlot();
-    public:
-    AddBookDialog(QWidget *parent = nullptr);
+    QPushButton *RemoveBookButton;
+    void RemoveBookSlot();
+public:
+    RemoveBookDialog(QWidget *parent = nullptr);
     QString getInputBookName();
     QString getInputAuthorName();
     short getInputYear();
@@ -43,4 +43,4 @@ class AddBookDialog  : public QDialog{
 
 
 
-#endif //ADDBOOKDIALOG_H
+#endif //REMOVEBOOKDIALOG_H
