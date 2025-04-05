@@ -13,6 +13,7 @@ class User {
     public:
     bool operator==(const User &) const = default;
     User(const std::string &_name);
+    User(const std::string &_name, const uint64_t &_id);
     uint64_t getId() const;
     QString getName() const;
     QString getUserInformation() const; // id name

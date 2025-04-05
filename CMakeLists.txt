@@ -17,7 +17,7 @@ set(CMAKE_AUTORCC ON)
 set(FORMS
         mainwindow.ui
 )
-add_executable(lectureTask main.cpp mainwindow.cpp AddBookDialog.cpp AddUserDialog.cpp findBookDialog.cpp)
+add_executable(lectureTask main.cpp mainwindow.cpp AddBookDialog.cpp AddUserDialog.cpp findBookDialog.cpp findUserDialog.cpp)
 add_library(Library_lib STATIC Book.cpp Library.cpp User.cpp)
 add_subdirectory(Google_tests)
 target_link_libraries(lectureTask

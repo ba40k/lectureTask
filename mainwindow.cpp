@@ -8,6 +8,8 @@
 #include "AddUserDialog.h"
 #include "Book.h"
 #include "findBookDialog.h"
+#include "findUserDialog.h"
+#include "QHeaderView"
 
 MainWindow::MainWindow(QWidget *parent) {
     setWindowTitle("Radamir's Library");
@@ -46,7 +48,7 @@ MainWindow::MainWindow(QWidget *parent) {
     tableView->setModel(model);
 
     tableView->setGeometry(QRect(0 , 0, WIDTH, HEIGHT));
-
+     tableView->setWordWrap(true);
     connect(addBookAction, &QAction::triggered,this, &MainWindow::addBookSlot);
     connect(findBookAction, &QAction::triggered,this, &MainWindow::findBookSlot);
     connect(removeBookAction, &QAction::triggered,this, &MainWindow::removeBookSlot);
@@ -61,7 +63,7 @@ MainWindow::MainWindow(QWidget *parent) {
 }
 void MainWindow::addBookSlot() {
 
-    AddBookDialog* addBookDialog = new AddBookDialog(this);
+    AddBookDialog* addBookDialog = new AddBookDialog();
     addBookDialog->exec();
 
     if (!addBookDialog->getErrorOccured()) {
@@ -77,7 +79,7 @@ void MainWindow::addBookSlot() {
     delete addBookDialog;
 }
 void MainWindow::findBookSlot() {
-    FindBookDialog* findBookDialog = new FindBookDialog(this);
+    FindBookDialog* findBookDialog = new FindBookDialog();
     findBookDialog->exec();
     if (!findBookDialog->getErrorOccured()) {
         QString title = findBookDialog->getInputBookName();
@@ -98,6 +100,10 @@ void MainWindow::findBookSlot() {
         }
 
     }
+
+
+
+
     delete findBookDialog;
 
 }
@@ -105,7 +111,7 @@ void MainWindow::removeBookSlot() {
 
 }
 void MainWindow::addUserSlot() {
-    AddUserDialog* addUserDialog = new AddUserDialog(this);
+    AddUserDialog* addUserDialog = new AddUserDialog();
     addUserDialog->exec();
 
     if (!addUserDialog->getErrorOccured()) {
@@ -115,9 +121,47 @@ void MainWindow::addUserSlot() {
         model->setHorizontalHeaderItem(model->columnCount(), new QStandardItem(name + " "  + QString::fromStdString(std::to_string(user.getId()))));
         lib.addUser(std::make_shared<User>(user));
     }
+
+    int newColumwWidth = WIDTH / model->columnCount();
+    for(int i =0 ;i<model->columnCount();i++) {
+        tableView->setColumnWidth(i, newColumwWidth);
+    }
+
+
     delete addUserDialog;
 }
 void MainWindow::findUserSlot() {
+    FindUserDialog* findUserDialog = new FindUserDialog();
+    findUserDialog->exec();
+    if (!findUserDialog->getErrorOccured()) {
+        QString name = findUserDialog->getInputUserName();
+        QString id = QString::fromStdString(std::to_string( findUserDialog->getInputUserId()));
+        User user(name.toStdString(),findUserDialog->getInputUserId());
+        QMessageBox* result = new QMessageBox(this);
+        if (lib.findUser(std::make_unique<User>(user))) {
+            result->setText("Такой пользователь существует");
+            result->show();
+        } else {
+            result->setText("Такого пользователя не существует");
+            result->show();
+        }
+
+    }
+    delete findUserDialog;
+}
+void MainWindow::resizeEvent(QResizeEvent *event) {
+    QMainWindow::resizeEvent(event);
+    WIDTH = width();
+    HEIGHT = height();
+    centralWidget->setFixedWidth(WIDTH);
+    tableView->horizontalHeader()->setSectionResizeMode(QHeaderView::Interactive);
+    tableView->setGeometry(QRect(0, 0, WIDTH, HEIGHT));
+    if (tableView && model->columnCount() > 0) {
+        int newColumwWidth = WIDTH / model->columnCount();
+        for(int i =0 ;i<model->columnCount();i++) {
+            tableView->setColumnWidth(i, newColumwWidth);
+        }
+    }
 
 }
 void MainWindow::removeUserSlot() {

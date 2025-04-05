@@ -18,8 +18,8 @@ QT_END_NAMESPACE
 
 class MainWindow : public QMainWindow
 {
-    const int WIDTH = 800;
-    const int HEIGHT = 600;
+     int WIDTH = 800;
+     int HEIGHT = 600;
     QMenuBar *menuBar;
     QMenu *addingMenu;
     QMenu *removeMenu;
@@ -43,6 +43,7 @@ class MainWindow : public QMainWindow
     void addUserSlot();
     void removeUserSlot();
     void findUserSlot();
+    void resizeEvent(QResizeEvent *event);
 public:
     MainWindow(QWidget *parent = nullptr);
     ~MainWindow();

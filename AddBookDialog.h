@@ -2,8 +2,8 @@
 // Created by radamir on 02.04.25.
 //
 
-#ifndef ADDBOOKDIALOG_H
-#define ADDBOOKDIALOG_H
+#ifndef ADDUSERDIALOG_H
+#define ADDUSERDIALOG_H
 
 #include <QDialog>
 #include <QHBoxLayout>
@@ -43,4 +43,4 @@ class AddBookDialog  : public QDialog{
 
 
 
-#endif //ADDBOOKDIALOG_H
+#endif //ADDUSERDIALOG_H
